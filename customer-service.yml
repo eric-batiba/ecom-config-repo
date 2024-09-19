@@ -4,10 +4,10 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://btb:btb@localhost:27017/customerDb?authSource=admin
-#      host: localhost
-#      database: customerDb  # The name of the database to connect to
-#      username: btb  # MongoDB username (optional if included in URI)
-#      password: btb  # MongoDB password (optional if included in URI)
-#      port: 27017
-#      authentication-database: admin
+#      uri: mongodb://btb:btb@mongo:27017/customerDb?authSource=admin
+      host: ${DB_HOST:localhost}
+      database: ${DB_DATABASE:customerDb}  # The name of the database to connect to
+      username: ${DB_USERNAME:btb}  # MongoDB username (optional if included in URI)
+      password: ${DB_PASSWORD:btb}  # MongoDB password (optional if included in URI)
+      port: ${DB_PORT:27017}
+      authentication-database: admin
