@@ -2,8 +2,6 @@ server:
   port: 8082
 
 spring:
-  profiles:
-    active: !test
   datasource:
     url: jdbc:postgresql://localhost:5432/ecommerce
     username: myuser
