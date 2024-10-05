@@ -2,6 +2,8 @@ server:
   port: 8082
 
 spring:
+  profiles:
+    active: !test
   datasource:
     url: jdbc:postgresql://localhost:5432/ecommerce
     username: myuser
@@ -18,7 +20,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    enabled: false
+    enabled: true
     locations: classpath:db/migration  # Path where migration scripts are located
     baseline-on-migrate: true  # Ensures Flyway starts with a baseline
     baseline-description: "init"

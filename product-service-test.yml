@@ -1,3 +1,10 @@
 spring:
-  flyway:
+  cloud:
+    discovery:
+      enabled: false
+  main:
+    banner-mode: "off"
+
+eureka:
+  server:
     enabled: false
