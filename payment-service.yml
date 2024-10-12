@@ -1,21 +1,22 @@
 server:
-  port: 8082
+  port: 8084
 
 spring:
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommerce}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommercepayment}
     username: ${DB_USERNAME:myuser}
     password: ${DB_PASSWORD:mypassword}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate  # Use none or validate if using Flyway for schema management
-    show-sql: true  # Displays SQL queries in the console
+      ddl-auto: validate
+    show-sql: true
     database: postgresql
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        generate_statistics: true
 
   flyway:
     enabled: true
@@ -24,5 +25,15 @@ spring:
     baseline-description: "init"
     username: ${DB_USERNAME:myuser}
     password: ${DB_PASSWORD:mypassword}
-#    user: ${spring.datasource.username}
-#    password: ${spring.datasource.password}
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
