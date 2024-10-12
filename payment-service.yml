@@ -1,9 +1,9 @@
 server:
-  port: 8083
+  port: 8084
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerceorder
+    url: jdbc:postgresql://localhost:5432/ecommercepayment
     username: myuser
     password: mypassword
     driver-class-name: org.postgresql.Driver
@@ -32,13 +32,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
-
-application:
-  config:
-    customer-url: http://localhost:8081/api/v1/customers
-    product-url: http://localhost:8082/api/v1/products
-    payment-url: http://localhost:8080/api/v1/payments
+        spring.json.type.mapping: paymentConfirmation:com.damlotec.ecommerce.kafka.PaymentConfirmation
 
 #logging:
 #  level:
