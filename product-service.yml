@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce
-    username: myuser
-    password: mypassword
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommerce}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:mypassword}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -22,5 +22,7 @@ spring:
     locations: classpath:db/migration  # Path where migration scripts are located
     baseline-on-migrate: true  # Ensures Flyway starts with a baseline
     baseline-description: "init"
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:mypassword}
+#    user: ${spring.datasource.username}
+#    password: ${spring.datasource.password}

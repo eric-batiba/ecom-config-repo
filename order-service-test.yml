@@ -1,10 +1,25 @@
-spring:
-  cloud:
-    discovery:
-      enabled: false
-  main:
-    banner-mode: "off"
+#spring:
+#  cloud:
+#    discovery:
+#      enabled: false
+#  main:
+#    banner-mode: "off"
+#
+#eureka:
+#  server:
+#    enabled: false
 
-eureka:
-  server:
-    enabled: false
+spring:
+  datasource:
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create  # Use none or validate if using Flyway for schema management
+    show-sql: true  # Displays SQL queries in the console
+    database: postgresql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

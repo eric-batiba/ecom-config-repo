@@ -1,11 +1,9 @@
 server:
-  port: 8083
+  port: 8084
 
 spring:
-  cache:
-    type: simple  # Use 'simple' for in-memory caching, or 'redis' if using Redis
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommerceorder}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommercepayment}
     username: ${DB_USERNAME:myuser}
     password: ${DB_PASSWORD:mypassword}
     driver-class-name: org.postgresql.Driver
@@ -34,19 +32,11 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
-
-order:
-  config:
-    customerUrl: http://localhost:8081/api/v1/customers
-    productUrl: http://localhost:8082/api/v1/products
-    paymentUrl: http://localhost:8080/api/v1/payments
-    test: test
+        spring.json.type.mapping: paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
 
 #logging:
 #  level:
 #    org.hibernate.SQL: DEBUG
-
 
 feign:
   client:
@@ -58,4 +48,3 @@ feign:
           period: 1000  # Initial interval between retries in ms
           maxPeriod: 5000 # Maximum interval between retries in ms
           maxAttempts: 3  # Number of retry attempts
-
