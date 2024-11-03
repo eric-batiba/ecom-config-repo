@@ -48,14 +48,14 @@ order:
 #    org.hibernate.SQL: DEBUG
 
 
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 10000
-        retryer:
-          period: 1000  # Initial interval between retries in ms
-          maxPeriod: 5000 # Maximum interval between retries in ms
-          maxAttempts: 3  # Number of retry attempts
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 10000
+#        retryer:
+#          period: 1000  # Initial interval between retries in ms
+#          maxPeriod: 5000 # Maximum interval between retries in ms
+#          maxAttempts: 3  # Number of retry attempts
 
