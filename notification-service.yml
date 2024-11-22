@@ -4,8 +4,9 @@ server:
 spring:
   data:
     mongodb:
+#      uri: mongodb://btb:btb@mongo:27017/customerDb?authSource=admin
       host: ${DB_HOST:localhost}
-      database: ${DB_DATABASE:notificationDb}  # The name of the database to connect to
+      database: ${DB_DATABASE:customerDb}  # The name of the database to connect to
       username: ${DB_USERNAME:btb}  # MongoDB username (optional if included in URI)
       password: ${DB_PASSWORD:btb}  # MongoDB password (optional if included in URI)
       port: ${DB_PORT:27017}
@@ -13,14 +14,15 @@ spring:
 
   kafka:
     bootstrap-servers: kafka:9092
-    group-id: paymentGroup, orderGroup
-    auto-offset-reset: earliest
     consumer:
+      group-id: orderGroup,paymentGroup
+      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentNotification
+        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
 
   mail:
     host: maildev
+    port: 1025
