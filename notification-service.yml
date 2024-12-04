@@ -26,3 +26,9 @@ spring:
   mail:
     host: maildev
     port: 1025
+    username: "" # No username required
+    password: "" # No password required
+    properties:
+      mail:
+        smtp:
+          auth: false
