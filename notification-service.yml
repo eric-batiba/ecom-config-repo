@@ -21,7 +21,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
+        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentNotification
 
   mail:
     host: maildev
