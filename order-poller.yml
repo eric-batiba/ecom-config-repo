@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8086
 
 spring:
   cache:
@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
     database: postgresql
     properties:
@@ -20,22 +20,23 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_statistics: true
 
-  flyway:
-    enabled: true
-    locations: classpath:db/migration  # Path where migration scripts are located
-    baseline-on-migrate: true  # Ensures Flyway starts with a baseline
-    baseline-description: "init"
-    username: ${DB_USERNAME:myuser}
-    password: ${DB_PASSWORD:mypassword}
+#  flyway:
+#    enabled: true
+#    locations: classpath:db/migration  # Path where migration scripts are located
+#    baseline-on-migrate: true  # Ensures Flyway starts with a baseline
+#    baseline-description: "init"
+#    username: ${DB_USERNAME:myuser}
+#    password: ${DB_PASSWORD:mypassword}
 
-#  kafka:
-#    bootstrap-servers: kafka:9092
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-#      properties:
-#        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
-#
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
+
 #order:
 #  config:
 #    customerUrl: http://localhost:8081/api/v1/customers

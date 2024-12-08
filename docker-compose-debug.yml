@@ -231,6 +231,37 @@ services:
     networks:
       - app-network
 
+  notification-service:
+    build: ./services/notification-service
+    container_name: notification-service
+    ports:
+      - "8085:8085"
+      - "5009:5009"
+    expose:
+      - "8081"
+      - "5005"
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009"
+      DISCOVERY_SERVICE_URL: http://discovery-server:8761/eureka
+      CONFIG_SERVER_URL: http://config-server:8888
+      DB_HOST: mongodb
+      DB_DATABASE: customerDb
+      DB_USERNAME: btb
+      DB_PASSWORD: btb
+      DB_PORT: 27017
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8085/actuator/health" ]
+      interval: 30s
+      retries: 5
+    depends_on:
+      config-server:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+
   gateway-service:
     build: ./services/gateway-service
     container_name: gateway-service
@@ -244,7 +275,7 @@ services:
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9999/actuator/health" ]
       interval: 30s
-      retries: 6
+      retries: 5
     networks:
       - app-network
 
@@ -277,19 +308,19 @@ services:
     networks:
       - app-network
 
-  kafka-ui:
-    image: provectuslabs/kafka-ui:v0.7.2
-    container_name: kafka-ui
-    depends_on:
-      - kafka
-    environment:
-      KAFKA_CLUSTERS_0_NAME: "local-cluster"
-      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: "kafka:9092"
-      KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
-    ports:
-      - "7777:8080"  # Kafka UI port
-    networks:
-      - app-network
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:v0.7.2
+#    container_name: kafka-ui
+#    depends_on:
+#      - kafka
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: "local-cluster"
+#      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: "kafka:9092"
+#      KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
+#    ports:
+#      - "7777:8080"  # Kafka UI port
+#    networks:
+#      - app-network
 
   zipkin:
     image: openzipkin/zipkin:3
@@ -301,12 +332,12 @@ services:
     networks:
       - app-network
 
-  maildev:
+  mail-dev:
     image: maildev/maildev:2.1.0
-    container_name: maildev
+    container_name: mail-dev
     restart: always
     ports:
-      - "1080:80"
+      - "1080:1080"
       - "1025:1025"
     networks:
       - app-network

@@ -13,7 +13,7 @@ spring:
       authentication-database: admin
 
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: kafka:9093
     consumer:
       group-id: orderGroup,paymentGroup
       auto-offset-reset: earliest
@@ -21,10 +21,10 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentNotification
+        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentConfirmation
 
   mail:
-    host: maildev
+    host: mail-dev
     port: 1025
     username: btb # No username required
     password: btb # No password required
@@ -33,3 +33,7 @@ spring:
         smtp:
           trust: "*"
         auth: true
+
+  cloud:
+    compatibility-verifier:
+      enabled: false

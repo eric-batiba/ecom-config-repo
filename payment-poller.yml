@@ -1,7 +1,9 @@
 server:
-  port: 8084
+  port: 8087
 
 spring:
+  cache:
+    type: simple  # Use 'simple' for in-memory caching, or 'redis' if using Redis
   datasource:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommercepayment}
     username: ${DB_USERNAME:myuser}
@@ -10,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
     database: postgresql
     properties:
@@ -18,25 +20,18 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_statistics: true
 
-  flyway:
-    enabled: true
-    locations: classpath:db/migration  # Path where migration scripts are located
-    baseline-on-migrate: true  # Ensures Flyway starts with a baseline
-    baseline-description: "init"
-    username: ${DB_USERNAME:myuser}
-    password: ${DB_PASSWORD:mypassword}
-
-#  kafka:
-#    bootstrap-servers: kafka:9093
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-#      properties:
-#        spring.json.type.mapping: paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
 
 #logging:
 #  level:
 #    org.hibernate.SQL: DEBUG
+
 
 #feign:
 #  client:
@@ -48,3 +43,4 @@ spring:
 #          period: 1000  # Initial interval between retries in ms
 #          maxPeriod: 5000 # Maximum interval between retries in ms
 #          maxAttempts: 3  # Number of retry attempts
+
