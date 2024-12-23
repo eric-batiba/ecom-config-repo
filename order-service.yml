@@ -17,6 +17,7 @@ spring:
     database: postgresql
     properties:
       hibernate:
+        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_statistics: true
 

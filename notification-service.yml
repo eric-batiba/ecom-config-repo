@@ -18,7 +18,8 @@ spring:
       group-id: orderGroup,paymentGroup
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
         spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentConfirmation

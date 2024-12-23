@@ -24,7 +24,8 @@ spring:
     bootstrap-servers: kafka:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.type.mapping: paymentNotification:com.damlotec.ecommerce.kafka.PaymentNotification
 
