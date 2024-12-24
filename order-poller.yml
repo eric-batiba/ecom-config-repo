@@ -2,8 +2,6 @@ server:
   port: 8086
 
 spring:
-  cache:
-    type: simple  # Use 'simple' for in-memory caching, or 'redis' if using Redis
   datasource:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/ecommerceorder}
     username: ${DB_USERNAME:myuser}
@@ -20,33 +18,21 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_statistics: true
 
-#  flyway:
-#    enabled: true
-#    locations: classpath:db/migration  # Path where migration scripts are located
-#    baseline-on-migrate: true  # Ensures Flyway starts with a baseline
-#    baseline-description: "init"
-#    username: ${DB_USERNAME:myuser}
-#    password: ${DB_PASSWORD:mypassword}
-
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: kafka:29092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       # value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
+#        spring.json.type.mapping: orderConfirmation:com.avro.OrderConfirmation
+        schema.registry.url: http://schema-registry:8088
 
-#order:
-#  config:
-#    customerUrl: http://localhost:8081/api/v1/customers
-#    productUrl: http://localhost:8082/api/v1/products
-#    paymentUrl: http://localhost:8080/api/v1/payments
-#    test: test
+logging:
+  level:
+    org.apache.kafka: DEBUG
+    io.confluent.kafka: DEBUG
 
-#logging:
-#  level:
-#    org.hibernate.SQL: DEBUG
 
 
 #feign:

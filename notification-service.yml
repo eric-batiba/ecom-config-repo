@@ -13,7 +13,7 @@ spring:
       authentication-database: admin
 
   kafka:
-    bootstrap-servers: kafka:9093
+    bootstrap-servers: kafka:29092
     consumer:
       group-id: orderGroup,paymentGroup
       auto-offset-reset: earliest
@@ -21,8 +21,11 @@ spring:
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
 #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: "*"
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.order.OrderConfirmation,paymentNotification:com.damlotec.ecommerce.kafka.payment.PaymentConfirmation
+#        spring.json.type.mapping: orderConfirmation:com.avro.OrderConfirmation,paymentNotification:com.avro.PaymentNotification
+        schema.registry.url: http://schema-registry:8088
+        specific:
+          avro:
+            reader: true
 
   mail:
     host: mail-dev
