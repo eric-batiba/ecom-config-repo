@@ -35,7 +35,10 @@ spring:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       # value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:com.damlotec.ecommerce.kafka.OrderConfirmation
+        spring.json.type.mapping: orderConfirmation:com.avro.OrderConfirmation
+        schema:
+          registry:
+            url: http://schema-registry:8088
 
 #order:
 #  config:
